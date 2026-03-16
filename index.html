@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sungen Farms — Weekly Market</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep:  #1B3A1F;
+  --green-mid:   #2D5A32;
+  --green-fresh: #4A8C3F;
+  --green-light: #7BB86F;
+  --cream:       #F9F5EE;
+  --warm-white:  #FFFDF8;
+  --gold:        #C8922A;
+  --gold-light:  #E8B84B;
+  --soil:        #3D2B1A;
+  --text-dark:   #1A2E1C;
+  --text-mid:    #4A5C4C;
+  --text-light:  #8A9E8C;
+  --border:      #E2DDD4;
+  --red-soft:    #C0392B;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--green-deep);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+}
+
+.logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.logo-icon {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 1.25rem;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.logo-text span { display: block; font-size: 0.65rem; font-family: 'Nunito', sans-serif; font-weight: 400; color: rgba(249,245,238,0.55); letter-spacing: 2px; text-transform: uppercase; }
+
+.header-right { display: flex; align-items: center; gap: 14px; }
+
+.week-badge {
+  background: rgba(200,146,42,0.2);
+  border: 1px solid rgba(200,146,42,0.4);
+  color: var(--gold-light);
+  font-size: 0.75rem; font-weight: 600;
+  padding: 5px 12px; border-radius: 50px;
+  letter-spacing: 0.5px;
+}
+
+.cart-btn {
+  background: var(--gold);
+  border: none; border-radius: 50px;
+  color: white; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 0.88rem;
+  padding: 9px 20px;
+  display: flex; align-items: center; gap: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+.cart-btn:hover { background: var(--gold-light); transform: scale(1.03); }
+.cart-count {
+  background: white; color: var(--soil);
+  border-radius: 50%; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 800;
+  transition: transform 0.3s;
+}
+.cart-count.bump { transform: scale(1.5); }
+
+/* ── HERO BANNER ── */
+.hero {
+  background: var(--green-deep);
+  background-image:
+    radial-gradient(ellipse at 70% 50%, rgba(74,140,63,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 10% 80%, rgba(200,146,42,0.12) 0%, transparent 50%);
+  padding: 52px 5% 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px;
+}
+.hero-text { max-width: 560px; }
+.hero-eyebrow {
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before { content:''; display:inline-block; width:24px; height:2px; background:var(--gold-light); }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--cream); line-height: 1.15;
+  margin-bottom: 16px;
+}
+.hero h1 em { color: var(--gold-light); font-style: normal; }
+.hero p { color: rgba(249,245,238,0.6); font-size: 1rem; line-height: 1.7; max-width: 440px; }
+
+.hero-stats {
+  display: flex; gap: 32px; margin-top: 28px;
+}
+.stat { text-align: center; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold-light); font-weight: 700; }
+.stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(249,245,238,0.45); margin-top: 2px; }
+
+.hero-deco {
+  font-size: 8rem; opacity: 0.08;
+  animation: float 6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ── SHEET STATUS BAR ── */
+.status-bar {
+  background: var(--green-mid);
+  padding: 10px 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.82rem;
+}
+.status-left { display: flex; align-items: center; gap: 8px; color: rgba(249,245,238,0.7); }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #6FCF97; animation: pulse 2s ease infinite; }
+.status-dot.loading { background: var(--gold-light); }
+.status-dot.error { background: #EB5757; animation: none; }
+.status-right { color: rgba(249,245,238,0.45); font-size: 0.75rem; }
+
+/* ── FILTERS ── */
+.filter-section {
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 5%;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.filter-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); font-weight: 600; margin-right: 4px; }
+.filter-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-mid);
+  border-radius: 50px; padding: 6px 18px;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem; font-weight: 600;
+  transition: all 0.18s;
+}
+.filter-btn:hover { border-color: var(--green-fresh); color: var(--green-fresh); }
+.filter-btn.active { background: var(--green-deep); border-color: var(--green-deep); color: white; }
+
+/* ── MAIN LAYOUT ── */
+.main { padding: 32px 5% 80px; }
+.section-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; color: var(--text-dark);
+}
+.section-count { font-size: 0.82rem; color: var(--text-light); }
+
+/* ── PRODUCT GRID ── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+  animation: fadeUp 0.4s ease both;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(27,58,31,0.12);
+  border-color: var(--green-light);
+}
+.product-card.hidden { display: none; }
+.product-card.out-card { opacity: 0.55; }
+.product-card.out-card:hover { transform: none; box-shadow: none; }
+
+.card-top {
+  padding: 22px 22px 14px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.card-emoji { font-size: 3rem; line-height: 1; }
+.card-badge {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 50px;
+  white-space: nowrap;
+}
+.badge-in  { background: #EBF5EB; color: #2D6A31; border: 1px solid #C3E0C4; }
+.badge-low { background: #FEF3E2; color: #92600A; border: 1px solid #FAD59A; }
+.badge-out { background: #FDECEA; color: #9B2222; border: 1px solid #F5C2BF; }
+
+.card-body { padding: 16px 22px 20px; }
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 3px;
+}
+.card-meta { font-size: 0.78rem; color: var(--text-light); margin-bottom: 14px; }
+.card-meta strong { color: var(--text-mid); }
+
+/* Availability bar */
+.avail-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.avail-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); font-weight: 600; }
+.avail-num { font-size: 0.82rem; color: var(--text-mid); font-weight: 600; }
+.avail-bar { height: 5px; background: var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+.avail-fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
+.fill-in  { background: linear-gradient(90deg, var(--green-fresh), var(--green-light)); }
+.fill-low { background: linear-gradient(90deg, #E67E22, #F39C12); }
+.fill-out { background: #ddd; }
+
+/* Quantity input */
+.qty-section { margin-bottom: 14px; }
+.qty-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); font-weight: 600; margin-bottom: 8px; display: block; }
+.qty-row { display: flex; align-items: center; gap: 10px; }
+.qty-controls { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+.qty-minus, .qty-plus {
+  width: 36px; height: 36px; background: var(--cream);
+  border: none; cursor: pointer; font-size: 1.1rem; color: var(--text-mid);
+  transition: background 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.qty-minus:hover, .qty-plus:hover { background: #eee; }
+.qty-input {
+  width: 60px; height: 36px; border: none;
+  text-align: center; font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem; font-weight: 700; color: var(--text-dark);
+  background: white; outline: none;
+}
+.qty-unit { font-size: 0.8rem; color: var(--text-light); font-weight: 500; }
+
+/* Live price */
+.live-price {
+  background: var(--cream);
+  border-radius: 10px; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.price-line { font-size: 0.75rem; color: var(--text-light); }
+.price-calc {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--green-deep);
+}
+.price-rate { font-size: 0.72rem; color: var(--text-light); margin-top: 1px; }
+
+.add-btn {
+  width: 100%; padding: 11px;
+  background: var(--green-deep);
+  border: none; border-radius: 10px;
+  color: white; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 0.9rem;
+  transition: background 0.2s, transform 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.add-btn:hover:not(:disabled) { background: var(--green-mid); transform: scale(1.02); }
+.add-btn:disabled { background: #ccc; cursor: not-allowed; }
+.add-btn.added { background: var(--gold); }
+
+/* ── LOADING / ERROR STATES ── */
+.state-box {
+  grid-column: 1/-1;
+  text-align: center; padding: 80px 20px;
+  color: var(--text-light);
+}
+.state-box .state-icon { font-size: 4rem; margin-bottom: 16px; opacity: 0.5; }
+.state-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text-mid); margin-bottom: 8px; }
+.state-box p { font-size: 0.9rem; line-height: 1.6; max-width: 400px; margin: 0 auto 20px; }
+.retry-btn {
+  background: var(--green-deep); color: white; border: none;
+  border-radius: 8px; padding: 10px 24px;
+  font-family: 'Nunito', sans-serif; font-weight: 700;
+  cursor: pointer; font-size: 0.9rem;
+}
+
+/* ── CART DRAWER ── */
+.overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(27,58,31,0.45); backdrop-filter: blur(3px);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+
+.drawer {
+  position: fixed; right: 0; top: 0; bottom: 0; z-index: 201;
+  width: min(460px, 100vw);
+  background: var(--warm-white);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transform: translateX(110%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-head {
+  background: var(--green-deep);
+  padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.drawer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: var(--cream);
+}
+.drawer-close {
+  background: rgba(255,255,255,0.1); border: none;
+  color: var(--cream); cursor: pointer;
+  width: 34px; height: 34px; border-radius: 50%;
+  font-size: 1rem; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.drawer-close:hover { background: rgba(255,255,255,0.2); }
+
+.drawer-items { flex: 1; overflow-y: auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 12px; }
+.drawer-items::-webkit-scrollbar { width: 4px; }
+.drawer-items::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.empty-state {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px; color: var(--text-light);
+  padding: 40px 0;
+}
+.empty-state .ei { font-size: 3.5rem; opacity: 0.3; }
+
+.cart-item {
+  background: white; border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  animation: slideIn 0.22s ease;
+}
+.ci-emoji { font-size: 2rem; }
+.ci-info { flex: 1; }
+.ci-name { font-weight: 700; font-size: 0.95rem; color: var(--text-dark); }
+.ci-sub { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+.ci-right { text-align: right; }
+.ci-price { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--green-deep); font-size: 1rem; }
+.ci-remove { background: none; border: none; color: var(--text-light); cursor: pointer; font-size: 0.75rem; margin-top: 4px; display: block; text-align: right; transition: color 0.15s; }
+.ci-remove:hover { color: var(--red-soft); }
+
+.drawer-foot {
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--border);
+}
+.totals { margin-bottom: 16px; }
+.total-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-mid); padding: 5px 0; }
+.total-row.grand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: var(--text-dark);
+  border-top: 1.5px solid var(--border);
+  margin-top: 8px; padding-top: 12px;
+}
+.checkout-btn {
+  width: 100%; padding: 15px;
+  background: var(--gold);
+  border: none; border-radius: 12px;
+  color: white; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 1rem;
+  transition: background 0.2s, transform 0.15s;
+}
+.checkout-btn:hover { background: var(--gold-light); transform: scale(1.01); }
+.checkout-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+/* ── ORDER SUMMARY MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(27,58,31,0.6); backdrop-filter: blur(5px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: white;
+  border-radius: 20px;
+  width: 100%; max-width: 540px;
+  max-height: 90vh; overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform 0.3s;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-head {
+  background: var(--green-deep);
+  padding: 28px 32px 24px;
+  border-radius: 20px 20px 0 0;
+}
+.modal-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; color: var(--cream); margin-bottom: 4px;
+}
+.modal-head p { color: rgba(249,245,238,0.55); font-size: 0.85rem; }
+
+.modal-body { padding: 28px 32px; }
+
+/* Order items table */
+.order-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.order-table th {
+  text-align: left; font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--text-light); font-weight: 700;
+  padding: 0 0 10px; border-bottom: 1.5px solid var(--border);
+}
+.order-table th:last-child { text-align: right; }
+.order-table td { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+.order-table td:last-child { text-align: right; font-weight: 700; color: var(--green-deep); }
+.ot-name { font-weight: 600; color: var(--text-dark); }
+.ot-sub { font-size: 0.75rem; color: var(--text-light); margin-top: 2px; }
+
+.order-totals { background: var(--cream); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; }
+.ot-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-mid); padding: 4px 0; }
+.ot-row.grand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text-dark); border-top: 1.5px solid var(--border); margin-top: 8px; padding-top: 10px; }
+
+/* Customer form */
+.form-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; color: var(--text-dark);
+  margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1/-1; }
+.form-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); font-weight: 700; }
+.form-input, .form-select {
+  border: 1.5px solid var(--border); border-radius: 9px;
+  padding: 10px 13px; font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem; color: var(--text-dark);
+  outline: none; transition: border-color 0.2s;
+  background: white;
+}
+.form-input:focus, .form-select:focus { border-color: var(--green-fresh); }
+.form-select option { background: white; }
+
+.auth-note {
+  background: #EBF5EB; border: 1px solid #C3E0C4;
+  border-radius: 10px; padding: 12px 16px;
+  font-size: 0.8rem; color: #2D6A31;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+}
+
+.modal-actions { display: flex; gap: 12px; }
+.modal-cancel {
+  flex: 1; padding: 13px;
+  background: white; border: 1.5px solid var(--border);
+  color: var(--text-mid); border-radius: 11px;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+.modal-cancel:hover { border-color: var(--text-mid); }
+.modal-confirm {
+  flex: 2; padding: 13px;
+  background: var(--gold); border: none;
+  color: white; border-radius: 11px;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 0.95rem;
+  transition: background 0.2s;
+}
+.modal-confirm:hover { background: var(--gold-light); }
+
+/* Success */
+.success-view {
+  display: none; text-align: center; padding: 20px 0;
+}
+.success-view.show { display: block; }
+.success-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: #EBF5EB; border: 3px solid var(--green-fresh);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; margin: 0 auto 20px;
+  animation: pop 0.5s ease;
+}
+.success-view h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--green-deep); margin-bottom: 10px; }
+.success-view p { color: var(--text-mid); font-size: 0.95rem; line-height: 1.7; max-width: 340px; margin: 0 auto 20px; }
+.success-ref {
+  display: inline-block;
+  background: var(--cream); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 20px;
+  font-size: 0.8rem; letter-spacing: 2px; color: var(--text-mid);
+  margin-bottom: 24px;
+}
+.continue-btn {
+  padding: 13px 36px;
+  background: var(--green-deep); border: none;
+  color: white; border-radius: 11px;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 0.95rem;
+}
+
+/* animations */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideIn { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:translateX(0); } }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+@keyframes pop { 0%{transform:scale(0.5)} 70%{transform:scale(1.15)} 100%{transform:scale(1)} }
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+
+.spinner {
+  width: 36px; height: 36px; border: 3px solid var(--border);
+  border-top-color: var(--green-fresh); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@media(max-width:600px){
+  .hero-deco{display:none}
+  .hero-stats{gap:20px}
+  .form-grid{grid-template-columns:1fr}
+  .modal-body{padding:20px}
+  .modal-head{padding:22px 20px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🌱</div>
+    <div class="logo-text">
+      Sungen Farms
+      <span>St. Philip, Barbados</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="week-badge" id="weekBadge">Loading...</div>
+    <button class="cart-btn" onclick="openDrawer()">
+      🧺 Basket <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Weekly Market — Live Availability</div>
+    <h1>Fresh from the field,<br><em>priced this week</em></h1>
+    <p>Our team updates stock and pricing every week straight from the farm. What you see is what's available — order now for delivery across Barbados.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="statItems">—</div><div class="stat-label">Items Available</div></div>
+      <div class="stat"><div class="stat-num" id="statLbs">—</div><div class="stat-label">Lbs Ready</div></div>
+      <div class="stat"><div class="stat-num">BBD</div><div class="stat-label">Currency</div></div>
+    </div>
+  </div>
+  <div class="hero-deco">🌾</div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-left">
+    <div class="status-dot loading" id="statusDot"></div>
+    <span id="statusText">Connecting to inventory sheet...</span>
+  </div>
+  <div class="status-right" id="lastUpdated"></div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-section">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" onclick="filterBy('all',this)">All</button>
+  <button class="filter-btn" onclick="filterBy('Vegetable',this)">🥦 Vegetables</button>
+  <button class="filter-btn" onclick="filterBy('Fruit',this)">🍍 Fruits</button>
+  <button class="filter-btn" onclick="filterBy('Herb',this)">🌿 Herbs</button>
+  <button class="filter-btn" onclick="filterBy('in',this)">✅ In Stock</button>
+</div>
+
+<!-- PRODUCTS -->
+<main class="main">
+  <div class="section-header">
+    <div class="section-title">This Week's Harvest</div>
+    <div class="section-count" id="productCount"></div>
+  </div>
+  <div class="product-grid" id="productGrid">
+    <div class="state-box">
+      <div class="spinner"></div>
+      <h3>Loading inventory...</h3>
+      <p>Fetching live stock and pricing from the farm spreadsheet.</p>
+    </div>
+  </div>
+</main>
+
+<!-- CART OVERLAY & DRAWER -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="drawer-title">Your Basket 🧺</div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems">
+    <div class="empty-state">
+      <div class="ei">🧺</div>
+      <div>Your basket is empty</div>
+      <div style="font-size:0.8rem;margin-top:4px;opacity:0.7">Add some fresh produce above</div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="totals">
+      <div class="total-row"><span>Subtotal</span><span id="subtotal">$0.00 BBD</span></div>
+      <div class="total-row"><span>Delivery fee</span><span>$8.00 BBD</span></div>
+      <div class="total-row grand"><span>Total</span><span id="grandTotal">$8.00 BBD</span></div>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>Review Order Summary</button>
+  </div>
+</div>
+
+<!-- ORDER SUMMARY MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+
+    <!-- Form view -->
+    <div id="formView">
+      <div class="modal-head">
+        <h2>Order Summary</h2>
+        <p>Review your items and enter delivery details</p>
+      </div>
+      <div class="modal-body">
+
+        <!-- Order items -->
+        <table class="order-table" id="orderTable">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Rate</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="orderTableBody"></tbody>
+        </table>
+
+        <div class="order-totals">
+          <div class="ot-row"><span>Subtotal</span><span id="modalSubtotal"></span></div>
+          <div class="ot-row"><span>Delivery</span><span>$8.00 BBD</span></div>
+          <div class="ot-row grand"><span>Total</span><span id="modalTotal"></span></div>
+        </div>
+
+        <!-- Delivery details -->
+        <div class="form-section-title">Delivery Details</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" id="fFirst" placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" id="fLast" placeholder="Smith">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-input" id="fPhone" placeholder="+1 246 000 0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="fEmail" placeholder="jane@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Parish</label>
+            <select class="form-select" id="fParish">
+              <option value="">Select parish...</option>
+              <option>Christ Church</option><option>St. Michael</option>
+              <option>St. James</option><option>St. Peter</option>
+              <option>St. Philip</option><option>St. George</option>
+              <option>St. John</option><option>St. Joseph</option>
+              <option>St. Andrew</option><option>St. Lucy</option>
+              <option>St. Thomas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Delivery Date</label>
+            <input type="date" class="form-input" id="fDate">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Street Address</label>
+            <input type="text" class="form-input" id="fAddress" placeholder="House number and road name">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Notes for the team (optional)</label>
+            <input type="text" class="form-input" id="fNotes" placeholder="e.g. Gate code, leave at door...">
+          </div>
+        </div>
+
+        <div class="auth-note">
+          🔒 Payment will be processed securely via <strong>Authorize.net</strong> — coming soon. This is an order reservation.
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-cancel" onclick="closeCheckout()">← Back to Basket</button>
+          <button class="modal-confirm" onclick="placeOrder()">Confirm Order →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success view -->
+    <div class="success-view" id="successView">
+      <div class="modal-body" style="padding-top:40px;padding-bottom:40px;">
+        <div class="success-ring">✓</div>
+        <h2>Order Confirmed!</h2>
+        <p>Thank you! Your order has been received. The Sungen Farms team will reach out to confirm your delivery slot.</p>
+        <div class="success-ref" id="successRef">REF: #SGF-000000</div>
+        <br>
+        <button class="continue-btn" onclick="resetAll()">Continue Shopping</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────
+// CONFIGURATION
+// Replace SHEET_ID with your published Google Sheet ID
+// The sheet must be published: File > Share > Publish to web > CSV
+// ─────────────────────────────────────────────────
+const SHEET_ID   = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms'; // ← REPLACE with your Sheet ID
+const SHEET_NAME = 'Sheet1'; // ← tab name in your sheet
+const DELIVERY   = 8;
+
+// Column mapping (0-indexed) — match your spreadsheet columns:
+// A=0 B=1 C=2 D=3 E=4 F=5 G=6
+const COL = {
+  name:     0,  // Product Name
+  category: 1,  // Category (Fruit / Vegetable / Herb)
+  emoji:    2,  // Emoji
+  unit:     3,  // Unit (lb / kg / each / bunch)
+  price:    4,  // Price per unit (BBD)
+  qty:      5,  // Quantity available (number)
+  status:   6,  // Status: in / low / out
+};
+
+// ─────────────────────────────────────────────────
+// DEMO DATA — used when sheet cannot be reached
+// Your team replaces this by filling the real sheet
+// ─────────────────────────────────────────────────
+const DEMO = [
+  ['Sweet Potatoes','Vegetable','🍠','lb', 2.50, 120,'in'],
+  ['Tomatoes',      'Vegetable','🍅','lb', 3.00,  85,'in'],
+  ['Watermelon',    'Fruit',    '🍉','each',8.00,  18,'low'],
+  ['Hot Peppers',   'Vegetable','🌶️','lb', 4.00,  40,'in'],
+  ['Christophine',  'Vegetable','🥬','lb', 2.00,  60,'in'],
+  ['Plantains',     'Fruit',    '🍌','bunch',5.00, 30,'in'],
+  ['Breadfruit',    'Fruit',    '🟡','each',6.00,  12,'low'],
+  ['Thyme',         'Herb',     '🌿','bunch',3.00, 25,'in'],
+  ['Sorrel',        'Herb',     '🌺','lb', 5.50,   8,'low'],
+  ['Cucumbers',     'Vegetable','🥒','each',1.50,  55,'in'],
+  ['Okras',         'Vegetable','🫛','lb', 2.75,  70,'in'],
+  ['Mangoes',       'Fruit',    '🥭','each',2.00,   0,'out'],
+];
+
+// ─────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────
+let products = [];
+let cart     = []; // { id, name, emoji, unit, qty, price, lineTotal }
+let filterMode = 'all';
+
+// ─────────────────────────────────────────────────
+// FETCH FROM GOOGLE SHEET
+// ─────────────────────────────────────────────────
+async function loadSheet() {
+  setStatus('loading', 'Fetching live inventory from spreadsheet...');
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+  try {
+    const res  = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const rows = parseCSV(text).slice(1); // skip header row
+    if (rows.length === 0) throw new Error('Empty sheet');
+    products = rows.map((r, i) => rowToProduct(r, i));
+    setStatus('in', `Live data loaded — ${products.length} products`);
+    document.getElementById('lastUpdated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
+  } catch (e) {
+    console.warn('Sheet load failed, using demo data:', e.message);
+    products = DEMO.map((r, i) => rowToProduct(r, i));
+    setStatus('low', 'Demo data shown — connect your Google Sheet to go live');
+    document.getElementById('lastUpdated').textContent = 'Demo mode';
+  }
+  renderStats();
+  renderProducts();
+  setWeekBadge();
+}
+
+function parseCSV(text) {
+  return text.trim().split('\n').map(line => {
+    const cells = [];
+    let cur = '', inQ = false;
+    for (let ch of line) {
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cells.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    cells.push(cur.trim());
+    return cells;
+  });
+}
+
+function rowToProduct(r, i) {
+  return {
+    id:       i,
+    name:     r[COL.name]     || 'Unknown',
+    category: r[COL.category] || 'Other',
+    emoji:    r[COL.emoji]    || '🌱',
+    unit:     r[COL.unit]     || 'lb',
+    price:    parseFloat(r[COL.price])  || 0,
+    qty:      parseFloat(r[COL.qty])    || 0,
+    status:   (r[COL.status]  || 'in').toLowerCase().trim(),
+  };
+}
+
+function setStatus(type, msg) {
+  const dot  = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  dot.className  = 'status-dot ' + (type === 'in' ? '' : type === 'low' ? 'loading' : 'error');
+  text.textContent = msg;
+}
+
+function setWeekBadge() {
+  const now = new Date();
+  const wk  = getWeekNum(now);
+  document.getElementById('weekBadge').textContent = `Week ${wk} · ${now.getFullYear()}`;
+}
+
+function getWeekNum(d) {
+  const s = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil(((d - s) / 86400000 + s.getDay() + 1) / 7);
+}
+
+function renderStats() {
+  const inStock = products.filter(p => p.status !== 'out');
+  document.getElementById('statItems').textContent = inStock.length;
+  const totalQty = inStock.reduce((s, p) => s + p.qty, 0);
+  document.getElementById('statLbs').textContent = totalQty > 999 ? (totalQty/1000).toFixed(1)+'k' : totalQty;
+}
+
+// ─────────────────────────────────────────────────
+// RENDER PRODUCTS
+// ─────────────────────────────────────────────────
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  let shown = 0;
+  products.forEach((p, i) => {
+    const card = buildCard(p, i);
+    grid.appendChild(card);
+    const hide = shouldHide(p);
+    if (hide) card.classList.add('hidden');
+    else shown++;
+  });
+  document.getElementById('productCount').textContent = `${shown} items`;
+}
+
+function shouldHide(p) {
+  if (filterMode === 'all')  return false;
+  if (filterMode === 'in')   return p.status === 'out';
+  return p.category !== filterMode;
+}
+
+function buildCard(p, idx) {
+  const isOut = p.status === 'out';
+  const pct   = isOut ? 0 : Math.min(100, Math.round((p.qty / 150) * 100));
+  const fillCls = isOut ? 'fill-out' : p.status === 'low' ? 'fill-low' : 'fill-in';
+  const badgeCls = isOut ? 'badge-out' : p.status === 'low' ? 'badge-low' : 'badge-in';
+  const badgeTxt = isOut ? 'Out of Stock' : p.status === 'low' ? 'Low Stock' : 'In Stock';
+
+  const card = document.createElement('div');
+  card.className = 'product-card' + (isOut ? ' out-card' : '');
+  card.dataset.category = p.category;
+  card.dataset.status   = p.status;
+  card.style.animationDelay = `${idx * 0.04}s`;
+
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="card-emoji">${p.emoji}</div>
+      <span class="card-badge ${badgeCls}">${badgeTxt}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-name">${p.name}</div>
+      <div class="card-meta">📍 St. Philip · <strong>$${p.price.toFixed(2)} BBD / ${p.unit}</strong></div>
+
+      <div class="avail-row">
+        <span class="avail-label">Availability</span>
+        <span class="avail-num">${isOut ? 'None' : p.qty + ' ' + p.unit + (p.qty !== 1 ? 's' : '') + ' left'}</span>
+      </div>
+      <div class="avail-bar"><div class="avail-fill ${fillCls}" style="width:${pct}%"></div></div>
+
+      <div class="qty-section">
+        <label class="qty-label">How much do you want? (${p.unit}s)</label>
+        <div class="qty-row">
+          <div class="qty-controls">
+            <button class="qty-minus" onclick="stepQty(${p.id},-1)" ${isOut?'disabled':''}>−</button>
+            <input class="qty-input" type="number" id="qi-${p.id}" value="${isOut?'0':'1'}"
+              min="0" max="${p.qty}" step="${p.unit==='each'||p.unit==='bunch'?'1':'0.5'}"
+              oninput="calcPrice(${p.id})" ${isOut?'disabled':''}>
+            <button class="qty-plus" onclick="stepQty(${p.id},1)" ${isOut?'disabled':''}>+</button>
+          </div>
+          <span class="qty-unit">${p.unit}${p.qty!==1?'s':''}</span>
+        </div>
+      </div>
+
+      <div class="live-price">
+        <div>
+          <div class="price-line">Line total</div>
+          <div class="price-calc" id="lp-${p.id}">$${p.price.toFixed(2)} BBD</div>
+          <div class="price-rate">@ $${p.price.toFixed(2)} / ${p.unit}</div>
+        </div>
+        <div style="font-size:2rem; opacity:0.15">💰</div>
+      </div>
+
+      <button class="add-btn" id="ab-${p.id}" onclick="addToCart(${p.id})" ${isOut?'disabled':''}>
+        ${isOut ? 'Out of Stock' : '+ Add to Basket'}
+      </button>
+    </div>`;
+
+  return card;
+}
+
+function calcPrice(id) {
+  const p   = products.find(x => x.id === id);
+  const inp = document.getElementById(`qi-${id}`);
+  let val   = parseFloat(inp.value) || 0;
+  if (val > p.qty) { val = p.qty; inp.value = val; }
+  if (val < 0)     { val = 0;     inp.value = 0;   }
+  const total = val * p.price;
+  document.getElementById(`lp-${id}`).textContent = `$${total.toFixed(2)} BBD`;
+}
+
+function stepQty(id, delta) {
+  const inp  = document.getElementById(`qi-${id}`);
+  const p    = products.find(x => x.id === id);
+  const step = (p.unit === 'each' || p.unit === 'bunch') ? 1 : 0.5;
+  let val    = (parseFloat(inp.value) || 0) + delta * step;
+  val        = Math.max(0, Math.min(p.qty, val));
+  inp.value  = val;
+  calcPrice(id);
+}
+
+// ─────────────────────────────────────────────────
+// FILTER
+// ─────────────────────────────────────────────────
+function filterBy(mode, btn) {
+  filterMode = mode;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  let shown = 0;
+  document.querySelectorAll('.product-card').forEach(c => {
+    const hide = mode === 'all' ? false
+               : mode === 'in' ? c.dataset.status === 'out'
+               : c.dataset.category !== mode;
+    c.classList.toggle('hidden', hide);
+    if (!hide) shown++;
+  });
+  document.getElementById('productCount').textContent = `${shown} items`;
+}
+
+// ─────────────────────────────────────────────────
+// CART
+// ─────────────────────────────────────────────────
+function addToCart(id) {
+  const p    = products.find(x => x.id === id);
+  const inp  = document.getElementById(`qi-${id}`);
+  const qty  = parseFloat(inp.value) || 0;
+  if (qty <= 0) { inp.focus(); return; }
+
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty       = qty;
+    existing.lineTotal = qty * p.price;
+  } else {
+    cart.push({ id, name: p.name, emoji: p.emoji, unit: p.unit, qty, price: p.price, lineTotal: qty * p.price });
+  }
+  updateCartUI();
+  flashAdd(id);
+  bumpCount();
+  openDrawer();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const sub   = cart.reduce((s, c) => s + c.lineTotal, 0);
+  const grand = sub + DELIVERY;
+  const count = cart.length;
+
+  document.getElementById('cartCount').textContent   = count;
+  document.getElementById('subtotal').textContent    = `$${sub.toFixed(2)} BBD`;
+  document.getElementById('grandTotal').textContent  = `$${grand.toFixed(2)} BBD`;
+  document.getElementById('checkoutBtn').disabled    = count === 0;
+
+  const container = document.getElementById('drawerItems');
+  if (cart.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="ei">🧺</div><div>Your basket is empty</div><div style="font-size:0.8rem;margin-top:4px;opacity:0.7">Add some fresh produce above</div></div>`;
+    return;
+  }
+  container.innerHTML = '';
+  cart.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <div class="ci-emoji">${item.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-sub">${item.qty} ${item.unit}${item.qty !== 1 ? 's' : ''} × $${item.price.toFixed(2)}</div>
+      </div>
+      <div class="ci-right">
+        <div class="ci-price">$${item.lineTotal.toFixed(2)}</div>
+        <button class="ci-remove" onclick="removeFromCart(${item.id})">✕ Remove</button>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function flashAdd(id) {
+  const btn = document.getElementById(`ab-${id}`);
+  btn.classList.add('added');
+  btn.textContent = '✓ Added to Basket';
+  setTimeout(() => { btn.classList.remove('added'); btn.textContent = '+ Add to Basket'; }, 1400);
+}
+
+function bumpCount() {
+  const el = document.getElementById('cartCount');
+  el.classList.add('bump');
+  setTimeout(() => el.classList.remove('bump'), 300);
+}
+
+function openDrawer()  { document.getElementById('drawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeDrawer() { document.getElementById('drawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+// ─────────────────────────────────────────────────
+// CHECKOUT
+// ─────────────────────────────────────────────────
+function openCheckout() {
+  closeDrawer();
+  const sub   = cart.reduce((s, c) => s + c.lineTotal, 0);
+  const grand = sub + DELIVERY;
+
+  // Populate order table
+  const tbody = document.getElementById('orderTableBody');
+  tbody.innerHTML = '';
+  cart.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="ot-name">${item.emoji} ${item.name}</div><div class="ot-sub">$${item.price.toFixed(2)} BBD / ${item.unit}</div></td>
+      <td>${item.qty} ${item.unit}${item.qty !== 1 ? 's' : ''}</td>
+      <td>$${item.price.toFixed(2)}</td>
+      <td>$${item.lineTotal.toFixed(2)}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('modalSubtotal').textContent = `$${sub.toFixed(2)} BBD`;
+  document.getElementById('modalTotal').textContent    = `$${grand.toFixed(2)} BBD`;
+
+  // Set min delivery date to tomorrow
+  const tmrw = new Date(); tmrw.setDate(tmrw.getDate() + 1);
+  document.getElementById('fDate').min   = tmrw.toISOString().split('T')[0];
+  document.getElementById('fDate').value = tmrw.toISOString().split('T')[0];
+
+  document.getElementById('formView').style.display    = 'block';
+  document.getElementById('successView').classList.remove('show');
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeCheckout() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function placeOrder() {
+  const req = ['fFirst','fLast','fPhone','fEmail','fParish','fDate','fAddress'];
+  for (const id of req) {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.focus(); el.style.borderColor = '#C0392B'; setTimeout(() => el.style.borderColor = '', 1500); return; }
+  }
+  const ref = 'SGF-' + Date.now().toString(36).toUpperCase().slice(-6);
+  document.getElementById('successRef').textContent = 'REF: #' + ref;
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('successView').classList.add('show');
+}
+
+function resetAll() {
+  cart = [];
+  updateCartUI();
+  closeCheckout();
+  document.querySelectorAll('.form-input, .form-select').forEach(el => el.value = '');
+}
+
+// ─────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────
+loadSheet();
+</script>
+</body>
+</html>
