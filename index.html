@@ -741,8 +741,8 @@ header {
 // Replace SHEET_ID with your published Google Sheet ID
 // The sheet must be published: File > Share > Publish to web > CSV
 // ─────────────────────────────────────────────────
-const SHEET_ID   = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms'; // ← REPLACE with your Sheet ID
-const SHEET_NAME = 'Sheet1'; // ← tab name in your sheet
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRgfalqMJsT4JhM3tqLHwb7z_BjEfVKevnUVtXCoVcfOpTvyUtPIVcgTdM2n1IMMA/pub?gid=1818651648&single=true&output=csv';
+
 const DELIVERY   = 8;
 
 // Column mapping (0-indexed) — match your spreadsheet columns:
@@ -788,7 +788,7 @@ let filterMode = 'all';
 // ─────────────────────────────────────────────────
 async function loadSheet() {
   setStatus('loading', 'Fetching live inventory from spreadsheet...');
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+  const url = SHEET_CSV_URL;
   try {
     const res  = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
