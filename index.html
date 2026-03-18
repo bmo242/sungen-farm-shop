@@ -810,7 +810,10 @@ async function loadSheet() {
 
   try {
     if (!text || text.length < 10) throw new Error('All proxies failed');
-    const rows = parseCSV(text).slice(1); // skip header row
+    const allRows = parseCSV(text);
+    // Find the actual header row (contains "Product Name") and skip past it
+    const headerIdx = allRows.findIndex(r => r[0] && r[0].trim() === 'Product Name');
+    const rows = headerIdx >= 0 ? allRows.slice(headerIdx + 1) : allRows.slice(1);
     if (rows.length === 0) throw new Error('Empty sheet');
     products = rows.filter(r => r[0] && r[0].trim() !== '').map((r, i) => rowToProduct(r, i));
     setStatus('in', `Live data loaded — ${products.length} products`);
@@ -847,7 +850,7 @@ function rowToProduct(r, i) {
     category: r[COL.category] || 'Other',
     emoji:    r[COL.emoji]    || '🌱',
     unit:     r[COL.unit]     || 'lb',
-    price:    parseFloat(r[COL.price])  || 0,
+    price:    parseFloat((r[COL.price] || '').replace(/[$,]/g, '')) || 0,
     qty:      parseFloat(r[COL.qty])    || 0,
     status:   (r[COL.status]  || 'in').toLowerCase().trim(),
   };
