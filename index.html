@@ -832,7 +832,11 @@ async function loadSheet() {
     if (rows.length === 0) throw new Error('Empty sheet');
     const validStatuses = ['in', 'low', 'out'];
     products = rows
-      .filter(r => r[0] && r[0].trim() !== '' && validStatuses.includes((r[COL.status] || '').toLowerCase().trim()))
+      .filter(r => {
+        const name = (r[0] || '').trim();
+        const status = (r[COL.status] || '').toLowerCase().trim();
+        return name !== '' && !name.toUpperCase().includes('TOTAL') && validStatuses.includes(status);
+      })
       .map((r, i) => rowToProduct(r, i));
     setStatus('in', `Live data loaded — ${products.length} products`);
     document.getElementById('lastUpdated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
@@ -1036,8 +1040,11 @@ function filterBy(mode, btn) {
   btn.classList.add('active');
   let shown = 0;
   document.querySelectorAll('.product-card').forEach(c => {
-    const hide = mode === 'all' ? false
-               : mode === 'in' ? c.dataset.status === 'out'
+    const isOut = c.dataset.status === 'out';
+    const hide = mode === 'out'  ? !isOut
+               : isOut           ? true
+               : mode === 'all'  ? false
+               : mode === 'in'   ? false
                : c.dataset.category !== mode;
     c.classList.toggle('hidden', hide);
     if (!hide) shown++;
