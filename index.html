@@ -804,23 +804,12 @@ let filterMode = 'all';
 async function loadSheet() {
   setStatus('loading', 'Fetching live inventory from spreadsheet...');
 
-  // CORS proxy fallback chain — tries each until one works
-  const proxies = [
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => url, // direct last resort
-  ];
-
   let text = null;
-  for (const proxy of proxies) {
-    try {
-      const res = await fetch(proxy(SHEET_CSV_URL));
-      if (!res.ok) continue;
-      text = await res.text();
-      if (text && text.length > 10) break;
-    } catch (e) {
-      continue;
-    }
+  try {
+    const res = await fetch('/api/inventory');
+    if (res.ok) text = await res.text();
+  } catch (e) {
+    console.warn('Inventory API failed:', e.message);
   }
 
   try {
