@@ -867,9 +867,9 @@ function parseCSV(text) {
 
 function driveImgUrl(url) {
   if (!url || !url.trim()) return null;
-  // Convert share link → direct embed URL
+  // Convert share link → thumbnail URL (works in <img> tags without redirect issues)
   const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  if (m) return `https://lh3.googleusercontent.com/d/${m[1]}`;
   return url.trim(); // already a direct URL
 }
 
