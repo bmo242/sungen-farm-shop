@@ -605,6 +605,7 @@ header {
   <button class="filter-btn" onclick="filterBy('Fruit',this)">🍍 Fruits</button>
   <button class="filter-btn" onclick="filterBy('Herb',this)">🌿 Herbs</button>
   <button class="filter-btn" onclick="filterBy('in',this)">✅ In Stock</button>
+  <button class="filter-btn" onclick="filterBy('out',this)">❌ Out of Stock</button>
 </div>
 
 <!-- PRODUCTS -->
@@ -829,7 +830,10 @@ async function loadSheet() {
     const headerIdx = allRows.findIndex(r => r[0] && r[0].trim() === 'Product Name');
     const rows = headerIdx >= 0 ? allRows.slice(headerIdx + 1) : allRows.slice(1);
     if (rows.length === 0) throw new Error('Empty sheet');
-    products = rows.filter(r => r[0] && r[0].trim() !== '').map((r, i) => rowToProduct(r, i));
+    const validStatuses = ['in', 'low', 'out'];
+    products = rows
+      .filter(r => r[0] && r[0].trim() !== '' && validStatuses.includes((r[COL.status] || '').toLowerCase().trim()))
+      .map((r, i) => rowToProduct(r, i));
     setStatus('in', `Live data loaded — ${products.length} products`);
     document.getElementById('lastUpdated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
   } catch (e) {
@@ -930,6 +934,8 @@ function renderProducts() {
 }
 
 function shouldHide(p) {
+  if (filterMode === 'out')  return p.status !== 'out';
+  if (p.status === 'out')    return true; // hide out-of-stock from all other filters
   if (filterMode === 'all')  return false;
   if (filterMode === 'in')   return p.status === 'out';
   return p.category !== filterMode;
