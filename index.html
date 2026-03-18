@@ -206,6 +206,19 @@ header {
   position: relative;
 }
 .card-emoji { font-size: 3rem; line-height: 1; }
+.card-img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  display: block;
+}
+.card-img-wrap {
+  width: 100%; overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.card-img-wrap .card-emoji-fallback {
+  font-size: 4rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  height: 140px; background: var(--cream);
+}
 .card-badge {
   font-size: 0.68rem; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase;
@@ -925,10 +938,16 @@ function buildCard(p, idx) {
   card.dataset.status   = p.status;
   card.style.animationDelay = `${idx * 0.04}s`;
 
+  const imgSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   card.innerHTML = `
-    <div class="card-top">
-      <div class="card-emoji">${p.emoji}</div>
-      <span class="card-badge ${badgeCls}">${badgeTxt}</span>
+    <div class="card-top" style="padding:0; border-bottom:none; position:relative;">
+      <div class="card-img-wrap">
+        <img class="card-img" src="images/${imgSlug}.jpg"
+          onerror="if(this.src.indexOf('fallback')<0){this.src='images/fallback.jpg';this.style.filter='grayscale(100%)';}else{this.style.display='none';this.nextElementSibling.style.display='flex';}"
+          alt="${p.name}">
+        <div class="card-emoji-fallback" style="display:none;">${p.emoji}</div>
+      </div>
+      <span class="card-badge ${badgeCls}" style="position:absolute;top:12px;right:12px;">${badgeTxt}</span>
     </div>
     <div class="card-body">
       <div class="card-name">${p.name}</div>
