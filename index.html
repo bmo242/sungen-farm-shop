@@ -759,7 +759,7 @@ const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRgfalqMJ
 const DELIVERY   = 8;
 
 // Column mapping (0-indexed) — match your spreadsheet columns:
-// A=0 B=1 C=2 D=3 E=4 F=5 G=6
+// A=0 B=1 C=2 D=3 E=4 F=5 G=6 ... K=10
 const COL = {
   name:     0,  // Product Name
   category: 1,  // Category (Fruit / Vegetable / Herb)
@@ -768,6 +768,7 @@ const COL = {
   price:    4,  // Price per unit (BBD)
   qty:      5,  // Quantity available (number)
   status:   6,  // Status: in / low / out
+  image:   10,  // Google Drive share URL (column K)
 };
 
 // ─────────────────────────────────────────────────
@@ -864,6 +865,14 @@ function parseCSV(text) {
   return rows;
 }
 
+function driveImgUrl(url) {
+  if (!url || !url.trim()) return null;
+  // Convert share link → direct embed URL
+  const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  return url.trim(); // already a direct URL
+}
+
 function rowToProduct(r, i) {
   return {
     id:       i,
@@ -874,6 +883,7 @@ function rowToProduct(r, i) {
     price:    parseFloat((r[COL.price] || '').replace(/[$,]/g, '')) || 0,
     qty:      parseFloat(r[COL.qty])    || 0,
     status:   (r[COL.status]  || 'in').toLowerCase().trim(),
+    image:    driveImgUrl(r[COL.image]),
   };
 }
 
@@ -938,11 +948,12 @@ function buildCard(p, idx) {
   card.dataset.status   = p.status;
   card.style.animationDelay = `${idx * 0.04}s`;
 
-  const imgSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const imgSrc = p.image || 'images/fallback.jpg';
+  const imgFilter = p.image ? '' : 'style="filter:grayscale(100%)"';
   card.innerHTML = `
     <div class="card-top" style="padding:0; border-bottom:none; position:relative;">
       <div class="card-img-wrap">
-        <img class="card-img" src="images/${imgSlug}.jpg"
+        <img class="card-img" src="${imgSrc}" ${imgFilter}
           onerror="if(this.src.indexOf('fallback')<0){this.src='images/fallback.jpg';this.style.filter='grayscale(100%)';}else{this.style.display='none';this.nextElementSibling.style.display='flex';}"
           alt="${p.name}">
         <div class="card-emoji-fallback" style="display:none;">${p.emoji}</div>
